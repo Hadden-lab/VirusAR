@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+		<!-- ^^ For apple devices only (or phones using internet explorer) IE=edge forces the newest engine to be used -->
+		<title> Virus-AR Demo! </title>
+		<link href="StyleSheet.css" rel="stylesheet">
+		<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.2.1/model-viewer.min.js"></script>
+	    	<!-- note to self: I removed the nomodule aspect of script -->
+	</head>
+	<body>
+		<model-viewer src="./GLB_Files/Norovirus.glb" loading="egaer" shadow-intensity="1" exposure="0.5" 
+			ar camera-controls disable-tap ar-modes="scene-viewer quick-look" touch-action="pan-y" alt="A 3D model capsid"
+			style="height: 100%; width: 100%"> 
+			<!-- ^^ Do Not Use XR Environment!! WebXR does not work for a lot of phones -->
+	
+			<button id="ar-prompt">
+				<img src="GoogleModelViewerARButton.png">
+			</button>
+			
+			<button id="ar-failure">
+				AR is not tracking!
+			</button>
+
+			<div class="slider">
+    				<div class="slides">
+      					<button class="slide selected" onclick="switchSrc(this, 'Norovirus')" 
+						style="background-image:url('./WEBP_Files/Norovirus.webp');"></button>
+
+					<button class="slide" onclick="switchSrc(this, 'BMV')" 
+						style="background-image:url('./WEBP_Files/BMV.webp');"></button>
+
+					<button class="slide" onclick="switchSrc(this, 'Yellowfever')" 
+						style="background-image:url('./WEBP_Files/Yellowfever.webp');"></button>
+
+					<button class="slide" onclick="switchSrc(this, 'Rotavirus')" 
+						style="background-image:url('./WEBP_Files/Rotavirus.webp');"></button>
+
+					<button class="slide" onclick="switchSrc(this, 'Zika')" 
+						style="background-image:url('./WEBP_Files/Zika.webp');"></button>
+
+					<button class="slide" onclick="switchSrc(this, 'HPV')" 
+						style="background-image:url('./WEBP_Files/HPV.webp');"></button>
+
+					<button class="slide" onclick="switchSrc(this, 'HIV')" 
+						style="background-image:url('./WEBP_Files/HIV.webp');"></button>
+
+					<button class="slide" onclick="switchSrc(this, 'HBV')" 
+						style="background-image:url('./WEBP_Files/HBV.webp');"></button>
+
+					<button class="slide" onclick="switchSrc(this, 'Measles')" 
+						style="background-image:url('./WEBP_Files/Measles.webp');"></button>
+
+					<button class="slide" onclick="switchSrc(this, 'TMV')" 
+						style="background-image:url('./WEBP_Files/TMV.webp');"></button>
+
+					<button class="slide" onclick="switchSrc(this, 'CPMV')" 
+						style="background-image:url('./WEBP_Files/CPMV.webp');"></button>
+
+					<button class="slide" onclick="switchSrc(this, 'Reovirus')" 
+						style="background-image:url('./WEBP_Files/Reovirus.webp');"></button>
+				</div>
+			</div>
+
+			<!--
+			<div id="controls" class="dim">
+				<label for="src">Virus:</label>
+				<select id="src" style="height: 50px">
+					<option value="./GLB_Files/Norovirus.glb">Norovirus</option>
+					<option value="./GLB_Files/BMV.glb">BMV</option>
+					<option value="./GLB_Files/Yellowfever.glb">Yellowfever</option>
+					<option value="./GLB_Files/Rotavirus.glb">Rotavirus</option>
+					<option value="./GLB_Files/Zika.glb">Zika</option>
+					<option value="./GLB_Files/HPV.glb">HPV</option>
+					<option value="./GLB_Files/HIV.glb">HIV</option>
+					<option value="./GLB_Files/HBV.glb">HBV</option>
+					<option value="./GLB_Files/Measles.glb">Measles</option>
+					<option value="./GLB_Files/TMV.glb">TMV</option>
+					<option value="./GLB_Files/CPMV.glb">CPMV</option>
+					<option value="./GLB_Files/Reovirus.glb">Reovirus</option>
+				</select><br>
+			</div>
+			-->
+		</model-viewer>
+		<script type="module">
+			
+			const modelViewer = document.querySelector('model-viewer');
+			
+			window.switchSrc = (element, name) => {
+    				const GLBbase = "./GLB_Files/" + name;
+				const WEBPbase = "./WEBP_Files/" + name;
+    				modelViewer.src = GLBbase + '.glb';
+    				modelViewer.poster = WEBPbase + '.webp';
+				modelViewer.loading = 'eager';
+    				const slides = document.querySelectorAll(".slide");
+    				slides.forEach((element) => {element.classList.remove("selected");});
+    				element.classList.add("selected");
+  			};
+			document.querySelector(".slider").addEventListener('beforexrselect', (ev) => {
+    				// Keep slider interactions from affecting the XR scene.
+    				ev.preventDefault();
+  			});
+			/*
+			modelViewer.querySelector('#src').addEventListener('input', (event) => {
+				modelViewer.src = event.target.value;
+			});
+			*/
+			
+		</script>
+	</body>
+</html>
